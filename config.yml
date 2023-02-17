@@ -23,8 +23,8 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Esphome-Web-Ee65F8"
-    password: "CrtawUck33I3"
+    ssid: !secret esphome_hotspot_ssid
+    password: !secret esphome_hotspot_password
 
 captive_portal:
     
@@ -32,8 +32,21 @@ sensor:
   - platform: adc
     pin: GPIO36
     attenuation: auto
+    name: "Soil Moisture 1"
+    unit_of_measurement: "%"
+    device_class: humidity
+    icon: "mdi:watering-can"
+    filters:
+      - calibrate_linear:
+          - 2.89 -> 0
+          - 1.46 -> 100
+    update_interval: 5s
+    accuracy_decimals: 0
+  - platform: adc
+    pin: GPIO36
+    attenuation: auto
     name: "Soil Voltage 1"
     unit_of_measurement: "V"
     device_class: voltage
-    update_interval: 1s
+    update_interval: 5s
     accuracy_decimals: 2
